@@ -1,9 +1,14 @@
 let key = "4d49b75508624cc6b29145523240204"; // api key
-let temp = document.getElementById("temp");
+let locationSelector = document.getElementById("locationSelector");
 
+// info object, updates on switch
 let infoHolder = {
   temp_c: 0,
+  feelslike_c: 0,
   temp_f: 0,
+  feelslike_f: 0,
+  condition: "error",
+  icon: "error",
   is_day: "error",
   uv: 0,
   precip_in: 0,
@@ -18,8 +23,17 @@ let infoHolder = {
   wind_kph: 0,
   wind_mph: 0,
   last_updated: "error",
-}; // info object, updates on switch
+  average_day1_c: 0,
+  average_day1_f: 0,
+  average_day2_c: 0,
+  average_day2_f: 0,
+  day1_text: "error",
+  day2_text: "error",
+  day1_icon: "error",
+  day2_icon: "error"
+};
 
+// api info grabber
 async function grabber(city) {
   try {
     let response = await fetch(
@@ -27,16 +41,24 @@ async function grabber(city) {
       { mode: "cors" }
     );
     let data = await response.json();
-    console.log(data);
-    objectEditor(data);
+    let forecast =  await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${key}&q=Beirut&days=3`, {mode: "cors"})
+    let dataForecast = await forecast.json();
+    objectEditor(data, dataForecast);
   } catch (error) {
     console.log(error);
   }
-} // api info grabber
+}
 
-function objectEditor(data) {
+// updates object
+function objectEditor(data, dataForecast) {
+  // current
+  // day
   infoHolder.temp_c = data.current.temp_c;
+  infoHolder.feelslike_c = data.current.feelslike_c;
   infoHolder.temp_f = data.current.temp_f;
+  infoHolder.feelslike_f = data.current.feelslike_f;
+  infoHolder.condition = data.current.condition.text;
+  infoHolder.icon = data.current.condition.icon;
   // change to boolean
   if (data.current.is_day == 1) {
     infoHolder.is_day = true;
@@ -71,9 +93,16 @@ function objectEditor(data) {
   infoHolder.wind_kph = data.current.wind_kph;
   infoHolder.wind_mph = data.current.wind_mph;
   infoHolder.last_updated = data.current.last_updated;
+  // days after
+  infoHolder.average_day1_c = dataForecast.forecast.forecastday[1].day.avgtemp_c;
+  infoHolder.average_day1_f = dataForecast.forecast.forecastday[1].day.avgtemp_f;
+  infoHolder.average_day2_c = dataForecast.forecast.forecastday[2].day.avgtemp_c;
+  infoHolder.average_day2_f = dataForecast.forecast.forecastday[2].day.avgtemp_f;
+  infoHolder.day1_text = dataForecast.forecast.forecastday[1].day.condition.text;
+  infoHolder.day1_icon = dataForecast.forecast.forecastday[1].day.condition.icon;
+  infoHolder.day2_text = dataForecast.forecast.forecastday[2].day.condition.text;
+  infoHolder.day2_icon = dataForecast.forecast.forecastday[2].day.condition.icon;
   console.log(infoHolder);
-} // updates object
-
-function DOMEditor() {} // updates DOM
+}
 
 grabber("Beirut");
