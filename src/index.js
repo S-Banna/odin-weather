@@ -1,5 +1,7 @@
 let key = "4d49b75508624cc6b29145523240204"; // api key
 let locationSelector = document.getElementById("locationSelector");
+let location = document.getElementById("location");
+let note = document.getElementById("note");
 
 // info object, updates on switch
 let infoHolder = {
@@ -30,7 +32,9 @@ let infoHolder = {
   day1_text: "error",
   day2_text: "error",
   day1_icon: "error",
-  day2_icon: "error"
+  day2_icon: "error",
+  country: "error",
+  city: "error"
 };
 
 // api info grabber
@@ -43,9 +47,11 @@ async function grabber(city) {
     let data = await response.json();
     let forecast =  await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${key}&q=Beirut&days=3`, {mode: "cors"})
     let dataForecast = await forecast.json();
+    note.textContent = "Text should be entered in the form: City, Country";
     objectEditor(data, dataForecast);
   } catch (error) {
     console.log(error);
+    note.textContent = "No location found";
   }
 }
 
@@ -75,21 +81,7 @@ function objectEditor(data, dataForecast) {
   infoHolder.pressure_in = data.current.pressure_in;
   infoHolder.pressure_mb = data.current.pressure_mb;
   infoHolder.wind_degree = data.current.wind_degree;
-  // change to full sentence
-  switch (data.current.wind_dir) {
-    case "SW":
-      infoHolder.wind_dir = "South West";
-      break;
-    case "SE":
-      infoHolder.wind_dir = "South East";
-      break;
-    case "NW":
-      infoHolder.wind_dir = "North West";
-      break;
-    case "NE":
-      infoHolder.wind_dir = "North East";
-      break;
-  }
+  infoHolder.wind_dir = data.current.wind_dir
   infoHolder.wind_kph = data.current.wind_kph;
   infoHolder.wind_mph = data.current.wind_mph;
   infoHolder.last_updated = data.current.last_updated;
@@ -102,7 +94,15 @@ function objectEditor(data, dataForecast) {
   infoHolder.day1_icon = dataForecast.forecast.forecastday[1].day.condition.icon;
   infoHolder.day2_text = dataForecast.forecast.forecastday[2].day.condition.text;
   infoHolder.day2_icon = dataForecast.forecast.forecastday[2].day.condition.icon;
+  //location
+  infoHolder.country = data.location.country;
+  infoHolder.city = data.location.name;
   console.log(infoHolder);
 }
 
-grabber("Beirut");
+locationSelector.addEventListener("click", () => {
+  let now = location.value;
+  location.value = "";
+  let arr = now.split(",");
+  grabber(arr[0]);
+})
