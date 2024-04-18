@@ -1,0 +1,84 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  color: white;
+  display: flex;
+}
+
+#overlay {
+  background-image: url(./images/sun.jpeg);
+  background-size: cover;
+  height: auto;
+  width: 100%;
+  background-position: center;
+}
+
+#overlay2 {
+  background-color: rgba(0, 0, 0, 0.5);
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+#searchHolder {
+  display: flex;
+  padding: 10px 0px 0px 10px;
+  flex-direction: column;
+  gap: 10px;
+  width: 270px;
+}
+
+#location {
+  color: white;
+  background: none;
+  border: 2px solid rgb(71, 71, 71);
+  border-radius: 20px;
+}
+
+#locationSelector {
+  color: white;
+  background: none;
+  border: 2px solid rgb(71, 71, 71);
+  border-radius: 20px;
+}
+
+#divider {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(49, 49, 49, 0.733);
+    margin-top: 10px;
+}
+
+#contentHolder {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px 0px 10px;
+}
+
+#main {
+    display: flex;
+    align-items: center;
+}
+
+#locationHolder {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#condition {
+    font-size: 34px;
+}
+
+#country {
+    font-size: 28px;
+}
+
+#city {
+    font-size: 22px;
+}
+
+
+
