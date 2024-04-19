@@ -1,0 +1,196 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  color: white;
+  display: flex;
+}
+
+#overlay {
+  background-image: url(./images/sun.jpeg);
+  background-size: cover;
+  height: auto;
+  width: 100%;
+  background-position: center;
+  transition: all ease-in-out 0.5s;
+}
+
+#switcher {
+  background-color: rgba(137, 238, 238, 0.048);
+  color: white;
+  border-radius: 20px;
+  border: 2px solid black;
+}
+
+#overlay2 {
+  background-color: rgba(0, 0, 0, 0.5);
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+#searchHolder {
+  display: flex;
+  padding: 10px 0px 0px 10px;
+  flex-direction: column;
+  gap: 10px;
+  width: 270px;
+}
+
+#location {
+  color: white;
+  background: none;
+  border: 2px solid rgb(71, 71, 71);
+  border-radius: 20px;
+}
+
+#locationSelector {
+  color: white;
+  background: none;
+  border: 2px solid rgb(71, 71, 71);
+  border-radius: 20px;
+}
+
+#divider {
+  width: 100%;
+  height: 2px;
+  background-color: rgba(49, 49, 49, 0.733);
+  margin-top: 10px;
+}
+
+#contentHolder {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0px 0px 10px;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+}
+
+#mainMainer {
+  display: flex;
+  align-items: center;
+}
+
+#locationHolder {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#condition {
+  font-size: 34px;
+}
+
+#country {
+  font-size: 28px;
+}
+
+#city {
+  font-size: 22px;
+}
+
+#daysHolder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.svg {
+  max-height: 50px;
+  max-width: 50px;
+}
+
+#stuff {
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  font-size: 20px;
+  flex: 1;
+  margin: 20px 0px 0px 20px;
+}
+
+#tempText,
+#uvText,
+#humidityText,
+#windText,
+#rainText {
+  font-size: 24px;
+}
+
+#feelsLike,
+#UVexplain,
+#humidExplain {
+  font-style: italic;
+  font-size: 14px;
+}
+
+#windValue,
+#rainValue {
+  font-size: 16px;
+}
+
+#stuff > div {
+  flex: 1;
+}
+
+#together {
+  display: flex;
+}
+
+@media only screen and (max-width: 500px) {
+  #stuff {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    font-size: 14px;
+    flex: 1;
+    margin: 10px 0px 0px 10px;
+  }
+
+  .svg {
+    max-height: 30px;
+    max-width: 30px;
+  }
+
+  #feelsLike,
+  #UVexplain,
+  #humidExplain {
+    font-style: italic;
+    font-size: 10px;
+  }
+
+  #tempText,
+  #uvText,
+  #humidityText,
+  #rainText,
+  #windText {
+    font-size: 16px;
+  }
+
+  #windValue,
+  #rainValue {
+    font-size: 12px;
+  }
+  #condition {
+    font-size: 30px;
+  }
+
+  #country {
+    font-size: 24px;
+  }
+
+  #city {
+    font-size: 18px;
+  }
+}
