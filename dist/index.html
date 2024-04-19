@@ -14,6 +14,7 @@
                 <input type="text" name="" id="location">
                 <button id="locationSelector">Find</button>
                 <em id="note">Text should be entered in the form: City</em>
+                <button id="switcher">Metric</button>
             </div>
             <div id="divider"></div>
             <div id="contentHolder">
@@ -22,12 +23,76 @@
                     <div id="city"></div>
                 </div>
                 <div id="main">
-                    <img src="" alt="" id="mainImg">
-                    <strong id="condition">----</strong>
+                    <div id="mainMainer">
+                        <img src="" alt="" id="mainImg">
+                        <strong id="condition">----</strong>
+                    </div>
+                    <div id="stuff">
+                        <div id="temp">
+                            <div id="together">
+                                <img class="svg" src="./images/temperature-low-svgrepo-com.svg" alt="">
+                                <div id="holder">
+                                    <div id="tempText">Temperature</div>
+                                    <div id="nowTemp"></div>
+                                    <div id="feelsLike"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="uv">
+                            <div id="together">
+                                <img class="svg" src="./images/uv-index-filled-svgrepo-com.svg" alt="">
+                                <div id="holder">
+                                    <div id="uvText">UV</div>
+                                    <div id="UVnumber"></div>
+                                    <div id="UVexplain"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="rain">
+                            <div id="together">
+                                <img class="svg" src="./images/rain-alt-svgrepo-com.svg" alt="">
+                                <div id="holder">
+                                    <div id="rainText">Rain</div>
+                                    <div id="rainValue"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="humidity">
+                            <div id="together">
+                                <img class="svg" src="./images/humidity-svgrepo-com.svg" alt="">
+                                <div id="holder">
+                                    <div id="humidityText">Humidity</div>
+                                    <div id="humidNumber"></div>
+                                    <div id="humidExplain"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="wind">
+                            <div id="together">
+                                <img class="svg" src="./images/wind-svgrepo-com.svg" alt="">
+                                <div id="holder">
+                                    <div id="windText">Wind</div>
+                                    <div id="windValue"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div id="divider" style="margin-bottom: 20px;"></div>
             <div id="daysHolder">
-
+                <div id="day1">
+                    <div id="day1day"></div>
+                    <img src="" alt="" id="day1img">
+                    <div id="day1text"></div>
+                    <div id="day1temp"></div>
+                </div>
+                <div id="day2">
+                    <div id="day2day"></div>
+                    <img src="" alt="" id="day2img">
+                    <div id="day2text"></div>
+                    <div id="day2temp"></div>
+                </div>
             </div>
         </div>
     </div>

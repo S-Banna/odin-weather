@@ -7,6 +7,38 @@ let condition = document.getElementById("condition");
 let mainImg = document.getElementById("mainImg");
 let city = document.getElementById("city");
 let country = document.getElementById("country");
+let switcher = document.getElementById("switcher");
+let day1img = document.getElementById("day1img");
+let day1text = document.getElementById("day1text");
+let day1day = document.getElementById("day1day");
+let day1temp = document.getElementById("day1temp");
+let day2img = document.getElementById("day2img");
+let day2text = document.getElementById("day2text");
+let day2day = document.getElementById("day2day");
+let day2temp = document.getElementById("day2temp");
+let stuff = document.getElementById("stuff");
+let nowTemp = document.getElementById("nowTemp");
+let feelsLike = document.getElementById("feelsLike");
+let uvNum = document.getElementById("UVnumber");
+let uvText = document.getElementById("UVexplain");
+let humidExplain = document.getElementById("humidExplain");
+let humidNumber = document.getElementById("humidNumber");
+let windValue = document.getElementById("windValue");
+let rainValue = document.getElementById("rainValue");
+
+let dataType = "metric";
+
+switcher.addEventListener("click", () => {
+  if (dataType == "metric") {
+    dataType = "imperial";
+    switcher.textContent = "Imperial";
+    updater();
+  } else {
+    dataType = "metric";
+    switcher.textContent = "Metric";
+    updater();
+  }
+});
 
 // info object, updates on switch
 let infoHolder = {
@@ -32,6 +64,8 @@ let infoHolder = {
   day2_text: "error",
   day1_icon: "error",
   day2_icon: "error",
+  day1_day: "error",
+  day2_day: "error",
   country: "error",
   city: "error",
 };
@@ -45,7 +79,7 @@ async function grabber(city) {
     );
     let data = await response.json();
     let forecast = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=Beirut&days=3`,
+      `https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${city}&days=3`,
       { mode: "cors" }
     );
     let dataForecast = await forecast.json();
@@ -98,10 +132,17 @@ function objectEditor(data, dataForecast) {
     dataForecast.forecast.forecastday[2].day.condition.text;
   infoHolder.day2_icon =
     dataForecast.forecast.forecastday[2].day.condition.icon;
+  infoHolder.day1_day = dataForecast.forecast.forecastday[1].date;
+  infoHolder.day2_day = dataForecast.forecast.forecastday[2].date;
   //location
   infoHolder.country = data.location.country;
   infoHolder.city = data.location.name;
-  console.log(infoHolder);
+  console.log(data);
+  updater();
+}
+
+function updater() {
+  stuff.style.display = "flex";
   // background
   let string = infoHolder.condition;
   if (string.includes("snow")) {
@@ -118,11 +159,41 @@ function objectEditor(data, dataForecast) {
   mainImg.src = infoHolder.icon;
   country.textContent = infoHolder.country;
   city.textContent = infoHolder.city;
+  //following days
+  day1img.src = infoHolder.day1_icon;
+  day1text.textContent = infoHolder.day1_text;
+  day1day.textContent = infoHolder.day1_day;
+  day2img.src = infoHolder.day2_icon;
+  day2text.textContent = infoHolder.day2_text;
+  day2day.textContent = infoHolder.day2_day;
+  // cut
+  uvNum.textContent = infoHolder.uv;
+  humidNumber.textContent = infoHolder.humidity + "%";
+  if (uvNum.textContent < 3) {uvText.textContent = "Low"}
+  else if (uvNum.textContent < 8) {uvText.textContent = "Moderate"}
+  else {uvText.textContent = "Very High"}
+  if (humidNumber.textContent < 20) {humidExplain.textContent = "Dry"}
+  else if (humidNumber.textContent < 60) {humidExplain.textContent = "Moderate"}
+  else {humidExplain.textContent = "Humid"}
+  if (dataType == "metric") {
+    day1temp.textContent = infoHolder.average_day1_c + " °C";
+    day2temp.textContent = infoHolder.average_day2_c + " °C";
+    nowTemp.textContent = infoHolder.temp_c + " °C";
+    feelsLike.textContent = "Feels Like " + infoHolder.feelslike_c + " °C";
+    windValue.textContent = infoHolder.wind_kph + " KPH";
+    rainValue.textContent = infoHolder.precip_mm + " mm";
+  } else {
+    day1temp.textContent = infoHolder.average_day1_f + " °F";
+    day2temp.textContent = infoHolder.average_day2_f + " °F";
+    nowTemp.textContent = infoHolder.temp_f + " °F";
+    feelsLike.textContent = "Feels Like " + infoHolder.feelslike_f + " °F";
+    windValue.textContent = infoHolder.wind_mph + " MPH";
+    rainValue.textContent = infoHolder.precip_in + " in";
+  }
 }
 
 locationSelector.addEventListener("click", () => {
   let now = location.value;
   location.value = "";
-  let arr = now.split(",");
-  grabber(arr[0]);
+  grabber(now);
 });
